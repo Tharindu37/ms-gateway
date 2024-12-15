@@ -1,5 +1,6 @@
-package security;
+package com.ecom.gateway.security;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,6 @@ import java.util.List;
 public class SecurityConfiguration {
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuerUri;
-
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity serverHttpSecurity){
         serverHttpSecurity.csrf(ServerHttpSecurity.CsrfSpec::disable)
@@ -36,6 +36,7 @@ public class SecurityConfiguration {
                                 .authenticated())
                 /*  .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(Customizer.withDefaults()));*/
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
+
 
 
         return  serverHttpSecurity.build();
